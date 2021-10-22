@@ -1,5 +1,5 @@
 class Coche constructor(
-    val color: String,
+    var color: String,
     val marca: String,
     val modelo: String,
     val numCababallos: Int,
@@ -28,6 +28,9 @@ fun main() {
     println()
 
     val coche3 = Coche("Verde", "Opel", "Astra", 101, 4, "4653 FHT")
+    println(coche3)
+    println("Dime el nuevo color del coche")
+    coche3.color= readLine()!!
     println(coche3)
     repeat(80) { print("_") }
 }

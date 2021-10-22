@@ -1,18 +1,32 @@
-class Tiempo(val horas:Int,val minutos:Int,val segundos:Int){
+class Tiempo(val horas: Int, val minutos: Int, val segundos: Int) {
     override fun toString(): String {
-        return ""
+        return "$horas h $minutos m $segundos s"
     }
 }
-fun main(){
+
+fun main() {
     println("Dime la hora")
-    val inHoras= readLine()!!.toInt()
+    var inHoras: Int
+    try {
+        inHoras = readLine()!!.toInt()
+    } catch (e: NumberFormatException) {
+        inHoras = 0
+    }
     println("Dime los minutos")
-    val inMinutos= readLine()!!.toInt()
+    var inMinutos: Int
+    try {
+        inMinutos = readLine()!!.toInt()
+    } catch (e: NumberFormatException) {
+        inMinutos = 0
+    }
     println("Dime los segundos")
-    val inSegundos= readLine()!!.toInt()
-    val tiempo=Tiempo(inHoras,inMinutos,inSegundos)
-    println("Dime en que formato quieres que se muentre la hora   horas/horas y minutos/horas minutos y segundos")
-    val formato=readLine()!!.uppercase()
+    var inSegundos: Int
+    try {
+        inSegundos = readLine()!!.toInt()
+    } catch (e: NumberFormatException) {
+        inSegundos = 0
+    }
+    val tiempo = Tiempo(inHoras, inMinutos, inSegundos)
     println(tiempo)
 }
 
