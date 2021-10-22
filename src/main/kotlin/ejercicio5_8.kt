@@ -1,6 +1,6 @@
 class Tiempo(val horas: Int, val minutos: Int, val segundos: Int) {
     override fun toString(): String {
-        return "-$horas h $minutos m $segundos s"
+        return "$horas h $minutos m $segundos s"
     }
 }
 
