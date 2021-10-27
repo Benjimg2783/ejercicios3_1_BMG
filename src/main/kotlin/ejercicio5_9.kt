@@ -1,33 +1,54 @@
-class Cuenta(val numCuenta: Int, var saldo: Int) {
-    fun consultarSaldo(): String {
-        return "Tienes $saldo€"
+class Cuenta(val numCuenta: String, var saldo: Double = 0.0) {
+    fun consultarSaldo(): Double {
+        return saldo
     }
 
-    fun recibirAbonos(abono: Int): String {
+    fun recibirAbonos(abono: Double): Double {
         saldo += abono
-        return "Has recibido $abono€, ahora tu saldo es $saldo€"
+        return saldo
     }
 
-    fun realizarPago(pago: Int): String {
+    fun realizarPago(pago: Double): Double {
         saldo -= pago
-        return "Has realizado un pago de $pago€, ahora tu saldo es $saldo€"
+        return saldo
     }
 
-    fun moroso(): Unit {
-        if (saldo < 0) {
-            println("Tu saldo es negativo debes $saldo€")
-        } else {
-            println("Tu saldo es positivo, tienes $saldo€")
-        }
-    }
 }
 
-class Persona(val DNI: String, var cuentas: Array<Cuenta?>) {
+class Persona(val DNI: String) {
+    var cuentas: Array<Cuenta?> = arrayOf()
+    fun incorporar(c: Cuenta) {
+        if (cuentas.size < 3) {
+            cuentas += c
+        }
+    }
 
+    fun moroso(): Boolean {
+        for (i in 0..2) {
+            if (cuentas[i]!!.saldo < 0) {
+                return true
+            }
+        }
+        return false
+    }
+    fun transferencia(pasa:Cuenta,recibe:Cuenta,transfer:Double){
+        pasa.realizarPago(transfer)
+        recibe.recibirAbonos(transfer)
+    }
 }
 
 fun main() {
-    val persona1 = Persona("75740978H", arrayOfNulls(3))
-    persona1.cuentas= listOf<Cuenta>(Cuenta(987766553, 0), Cuenta(726767623, 700)).toTypedArray()
-
+    val p = Persona("73458679L")
+    val c1 = Cuenta("cuenta1")
+    val c2 = Cuenta("Cuenta2", 700.0)
+    p.incorporar(c1)
+    p.incorporar(c2)
+    c1.recibirAbonos(1100.0)
+    c2.realizarPago(750.0)
+    if (p.moroso()==true){
+        println("La persona con DNI ${p.DNI} es moroso/a")
+    }
+    p.transferencia(c1,c2,100.0)
+    println("La cuenta ${c1.numCuenta} tiene actualmente ${c1.saldo}")
+    println("La cuenta ${c2.numCuenta} tiene actualmente ${c2.saldo}")
 }
