@@ -28,10 +28,9 @@ class Persona(val DNI: String) {
             if (cuentas[i]!!.saldo < 0) {
                 return true
             }
-        }
+    }
         return false
     }
-
     fun transferencia(pasa: Cuenta, recibe: Cuenta, transfer: Double) {
         pasa.realizarPago(transfer)
         recibe.recibirAbonos(transfer)
@@ -46,11 +45,8 @@ fun main() {
     p.incorporar(c2)
     c1.recibirAbonos(1100.0)
     c2.realizarPago(750.0)
-    try {
-        if (p.moroso()) {
-            println("La persona con DNI ${p.DNI} es moroso/a")
-        }
-    } catch (e: ArrayIndexOutOfBoundsException) {
+    if (p.moroso()) {
+        println("La persona con DNI ${p.DNI} es moroso/a")
     }
     p.transferencia(c1, c2, 100.0)
     println("La cuenta ${c1.numCuenta} tiene actualmente ${c1.saldo}")
