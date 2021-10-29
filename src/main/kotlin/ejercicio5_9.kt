@@ -1,7 +1,4 @@
 class Cuenta(val numCuenta: String, var saldo: Double = 0.0) {
-    fun consultarSaldo(): Double {
-        return saldo
-    }
 
     fun recibirAbonos(abono: Double): Double {
         saldo += abono
@@ -16,7 +13,7 @@ class Cuenta(val numCuenta: String, var saldo: Double = 0.0) {
 }
 
 class Persona(val DNI: String) {
-    var cuentas: Array<Cuenta?> = arrayOf()
+    var cuentas: Array<Cuenta> = arrayOf()
     fun incorporar(c: Cuenta) {
         if (cuentas.size < 3) {
             cuentas += c
@@ -25,12 +22,16 @@ class Persona(val DNI: String) {
 
     fun moroso(): Boolean {
         for (i in 0..2) {
-            if (cuentas[i]!!.saldo < 0) {
-                return true
+            try {
+                if (cuentas[i].saldo < 0) {
+                    return true
+                }
+            } catch (e: ArrayIndexOutOfBoundsException) {
             }
-    }
+        }
         return false
     }
+
     fun transferencia(pasa: Cuenta, recibe: Cuenta, transfer: Double) {
         pasa.realizarPago(transfer)
         recibe.recibirAbonos(transfer)
