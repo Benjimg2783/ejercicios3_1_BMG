@@ -1,4 +1,4 @@
-class Libro(val titulo: String, val autor: String, val numpag: Int, calificacion: Int) {
+class Libro(val titulo: String, val autor: String, calificacion: Int) {
     var calif: Int = calificacion
         set(value) {
             if (value in 0..10) field = value
@@ -16,7 +16,7 @@ class Libro(val titulo: String, val autor: String, val numpag: Int, calificacion
 }
 
 class ConjuntoLibros(tamanyo: Int) {
-    private val size = tamanyo
+    val size = tamanyo
     var libros = arrayOfNulls<Libro>(size)
 
     fun add(libro: Libro): String {
@@ -34,7 +34,7 @@ class ConjuntoLibros(tamanyo: Int) {
 
     fun almacenados(): Int {
         var cantidad = 0
-        for (i in 0 until size) {
+        for (i in 0 until  size) {
             if (libros[i] != null) cantidad++
         }
         return cantidad
@@ -63,14 +63,14 @@ class ConjuntoLibros(tamanyo: Int) {
     }
 
     override fun toString(): String {
-        val listapos = mutableListOf<Int>()
+        val posicionLista = mutableListOf<Int>()
         var listalibros = "Libros almacenados:"
         return if (almacenados() > 0) {
-            for (i in 0 until size) {
-                if (libros[i] != null) listapos.add(i)
+            for (i in 0 until  size) {
+                if (libros[i] != null) posicionLista.add(i)
             }
-            for (i in 0 until listapos.size) {
-                listalibros += "\n- ${libros[listapos[i]]}."
+            for (i in 0 until posicionLista.size) {
+                listalibros += "\n- ${libros[posicionLista[i]]}."
             }
             listalibros
         } else "No hay libros almacenados"
@@ -81,8 +81,8 @@ class ConjuntoLibros(tamanyo: Int) {
 
 fun main() {
     val libreria = ConjuntoLibros(10)
-    val libro = Libro("Harry potter y la piedra filosofal", "J.K. Rowling", 256, 10)
-    val libro2 = Libro("El bosón de higgs no te va a hacer la cama", "Javier Santaolalla", 372, 7)
+    val libro = Libro("Harry potter y la piedra filosofal", "J.K. Rowling", 10)
+    val libro2 = Libro("El bosón de higgs no te va a hacer la cama", "Javier Santaolalla", 7)
 
     println(libreria.add(libro))
     println(libreria.add(libro2))
