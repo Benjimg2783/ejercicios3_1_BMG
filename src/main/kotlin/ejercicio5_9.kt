@@ -13,7 +13,7 @@ class Cuenta(val numCuenta: String, var saldo: Double = 0.0) {
 }
 
 class Persona(val DNI: String) {
-    var cuentas: Array<Cuenta> = arrayOf()
+    private var cuentas: Array<Cuenta> = arrayOf()
     fun incorporar(c: Cuenta) {
         if (cuentas.size < 3) {
             cuentas += c
@@ -21,15 +21,14 @@ class Persona(val DNI: String) {
     }
 
     fun moroso(): Boolean {
-        for (i in 0..2) {
-            try {
-                if (cuentas[i].saldo < 0) {
-                    return true
-                }
-            } catch (e: ArrayIndexOutOfBoundsException) {
-            }
+        var contador=0
+        var moroso=false
+        while (contador< cuentas.size && !moroso) {
+            if (cuentas[contador].saldo < 0) {
+                moroso=true
+            }else contador++
         }
-        return false
+        return moroso
     }
 
     fun transferencia(pasa: Cuenta, recibe: Cuenta, transfer: Double) {
